@@ -1,0 +1,29 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\Usage;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class UsageFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Usage::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'description_ar' => $this->faker->paragraph(),
+            'description_en' => $this->faker->paragraph(),
+        ];
+    }
+}

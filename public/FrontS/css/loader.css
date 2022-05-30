@@ -1,0 +1,79 @@
+.loader-container {
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    background-color: #fff;
+    z-index: 10000;
+    text-align: center;
+    overflow: hidden;
+}
+
+.circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.wr-loading {
+    animation: wave1 2s ease-in-out infinite alternate;
+    -webkit-animation: wave1 2s ease-in-out infinite alternate;
+}
+
+@media(max-width: 576px) {
+    .wr-loading {
+        width: 300px;
+    }
+}
+
+.char1 {
+    animation: wave1 0.5s linear infinite alternate;
+    -webkit-animation: wave1 0.5s linear infinite alternate;
+}
+
+.char2 {
+    animation: wave1 0.6s linear infinite alternate;
+    -webkit-animation: wave1 0.6s linear infinite alternate;
+    animation-delay: 0.1s;
+}
+
+.char3 {
+    animation: wave1 0.7s linear infinite alternate;
+    -webkit-animation: wave1 0.7s linear infinite alternate;
+    animation-delay: 0.2s;
+}
+
+@keyframes wave1 {
+    0% {
+        transform: translateY(-5px);
+        -webkit-transform: translateY(-5px);
+        -moz-transform: translateY(-5px);
+        -ms-transform: translateY(-5px);
+        -o-transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0);
+        -webkit-transform: translateY(0);
+        -moz-transform: translateY(0);
+        -ms-transform: translateY(0);
+        -o-transform: translateY(0);
+    }
+}
+
+@keyframes bigWave {
+    0% {
+        transform: translateY(-7px);
+        -webkit-transform: translateY(-7px);
+        -moz-transform: translateY(-7px);
+        -ms-transform: translateY(-7px);
+        -o-transform: translateY(-7px);
+    }
+    100% {
+        transform: translateY(0);
+        -webkit-transform: translateY(0);
+        -moz-transform: translateY(0);
+        -ms-transform: translateY(0);
+        -o-transform: translateY(0);
+    }
+}
