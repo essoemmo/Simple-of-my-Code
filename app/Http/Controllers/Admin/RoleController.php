@@ -18,8 +18,7 @@ class RoleController extends BaseAdminController
 
     public function index(RoleDataTable $roles)
     {
-        $models = ['restaurants','admins','banners','amenities','roles','users',
-        'orders','rates','aboutus','terms','usages','privacy','settings','sections','contactus'];
+        $models = ['admins','roles','users','cities','languages','nationals','relations','aboutus','terms','usages','privecy','settings','contactus'];
 
         $actions = ['create', 'read', 'update', 'delete'];
 
@@ -38,8 +37,7 @@ class RoleController extends BaseAdminController
 
     public function edit($id)
     {
-        $models = ['restaurants','admins','banners','amenities','roles','users',
-        'orders','rates','aboutus','terms','usages','privacy','settings','sections','contactus'];
+        $models = ['admins','roles','users','cities','languages','nationals','relations','aboutus','terms','usages','privecy','settings','contactus'];
 
         $actions = ['create', 'read', 'update', 'delete'];
 

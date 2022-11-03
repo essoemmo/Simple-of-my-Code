@@ -12,17 +12,15 @@ class Type extends Model
     protected $table = 'types';
 
     protected $fillable = [
-        'product_id',
         'title_ar',
         'title_en',
-        'price',
     ];
 
     protected $hidden = [
-        'created_at',
-        'updated_at',
         'title_ar',
         'title_en',
+        'created_at',
+        'updated_at',
     ];
 
     protected $appends = ['title'];
@@ -32,14 +30,8 @@ class Type extends Model
         return $this->{'title_'. app()->getLocale()};
     }
 
-    public function products()
+    public function users()
     {
-        return $this->belongsTo(Product::class,'product_id');
+        return $this->hasMany(User::class);
     }
-
-    public function orderdetails()
-    {
-        return $this->hasOne(OrderDetail::class);
-    }
-
 }

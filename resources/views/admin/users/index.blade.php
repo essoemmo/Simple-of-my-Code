@@ -24,17 +24,6 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header border-bottom">
-                    <h4 class="card-title"> @lang('admin.users')</h4>
-                    @if(Auth::guard('admin')->user()->hasPermission('users-create'))
-                    <button class="dt-button create-new btn btn-dark d-inline-flex" type="button" data-toggle="modal"
-                        data-target="#modal-add-user">
-                        <span style="font-size: 15px;">+ @lang('admin.addusers')</span>
-                    </button>
-                    @else
-                    <button class="dt-button create-new btn btn-dark d-inline-flex disabled" type="button">
-                        <span style="font-size: 15px;">+ @lang('admin.addusers')</span>
-                    </button>
-                    @endif
 
                 </div>
                 <div class="card-datatable">
@@ -47,7 +36,23 @@
         </div>
     </div>
 
-    <!-- Modal to add new record -->
+    <div class="modal fade text-left" id="typesList" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel33">@lang('admin.kids')</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body" id="ShowKids">
+
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- <!-- Modal to add new record -->
     @if(Auth::guard('admin')->user()->hasPermission('users-create'))
     <div class="modal modal-slide-in fade" id="modal-add-user">
         <div class="modal-dialog sidebar-sm">
@@ -206,7 +211,7 @@
             </form>
         </div>
     </div>
-    @endif
+    @endif --}}
 
 </section>
 
@@ -224,46 +229,26 @@
 
 <script>
 
-        $('body').on('submit','#adduser',function (e) {
-            e.preventDefault();
-            $.ajax({
-                url: '{{ route('users.store') }}',
-                method: "post",
-                data: new FormData(this),
-                dataType: 'json',
-                cache       : false,
-                contentType : false,
-                processData : false,
-                success: function (response) {
-                if(response.status == 'success'){
-                    toastr.options =
-                    {
-                        "closeButton" : true,
-                        "progressBar" : true,
-                        "showDuration": 500, 
-                    }
-                    toastr['success']("@lang('admin.added')");
-                }
-                    $('.user-table').DataTable().ajax.reload();
-                    $modal = $('#modal-add-user');
-                    $modal.find('form')[0].reset();
-                    $('#modal-add-user').modal('hide');
-                },
-                error: function (response) {
-                    var errors = response.responseJSON.errors;
-                    $.each(errors, function( index, value ) {
-                    toastr.options ={
-                            "closeButton" : true,
-                            "progressBar" : true,
-                            "showDuration": 500, 
-                        }
-                    toastr['error'](value);
-                    });
-                }
+    $('body').on('click','.kids',function () {
+        var user_id = $(this).data('id');
+        $.ajax({
+            url:'{{ route('getkids') }}',
+            type:'GET',
+            data:{
+                'user_id': user_id
+            },
+            success: function (response) {
+                    var docRow = '';
+                    $('#ShowKids').html('');
+                    $.each(response, function(index, value){
+                      docRow = '<span style="font-size: x-large;">'+value.name+'</span><span style="float: right;font-size: x-large;">'+value.id_number+'</span><br>';
 
+                    $('#ShowKids').append(docRow);
 
-            });
-      });
+                });
+            }
+        });
+    });
 
       $('body').on('click','#check',function () {
             //e.preventDefault();
@@ -291,83 +276,6 @@
             });
         });
 
-      $('body').on('click','.edit',function (e) {
-
-            e.preventDefault();
-            var id = $(this).data('userid');
-            var name = $(this).data('name');
-            var phone = $(this).data('phone');
-            var email = $(this).data('email');
-            var address = $(this).data('address');
-            var photo = $(this).data('user_image');
-            var photo_url = "{{url('')}}/" + photo ;
-
-            $('#User_id').val(id);
-            $('#name').val(name);
-            $('#phone').val(phone);
-            $('#email').val(email);
-            $('#address').val(address);
-            $('.image-show').attr('src',photo_url);
-        })
-
-      $('body').on('submit','#edituser',function (e) {
-                e.preventDefault();
-                let id = $('#User_id').val();
-                var url = '{{ route('users.update', ':id') }}';
-                url = url.replace(':id', id);
-
-                $.ajax({
-                    url: url,
-                    method: "post",
-                    data: new FormData(this),
-                    dataType: 'json',
-                    cache       : false,
-                    contentType : false,
-                    processData : false,
-                    success: function (response) {
-                    if(response.status == 'success'){
-                        toastr.options = {
-                            "closeButton" : true,
-                            "progressBar" : true,
-                            "showDuration": 500, 
-                        }
-                        toastr['success']("@lang('admin.updated')");
-                    }
-                    $('.user-table').DataTable().ajax.reload();
-                    $modal = $('#modal-edit-user');
-                    $modal.find('form')[0].reset();
-                    $('#modal-edit-user').modal('hide');
-                    },
-                    error: function (response) {
-                     var errors = response.responseJSON.errors;
-                     $.each(errors, function( index, value ) {
-                    toastr.options =
-                    {
-                        "closeButton" : true,
-                        "progressBar" : true,
-                        "showDuration": 500, 
-                    }
-                    toastr['error'](value);
-                });
-                }
-
-                });
-       });
-
-      $('body').on('submit','#delform',function (e) {
-           e.preventDefault();
-           var url = $(this).attr('action');
-           $.ajax({
-             url: url,
-             method: "delete",
-             data: {
-                 _token: '{{ csrf_token() }}',
-             },
-             success: function (response) {
-                $('.user-table').DataTable().ajax.reload();
-             }
-           });
-        })
     
 </script>
 @endpush

@@ -840,10 +840,10 @@ footer.footer-border {
 
 .main-menu.menu-dark {
   color: #dcdcdc;
-  background: #232324; }
+  background: #03142E; }
 
 .main-menu.menu-dark .navigation {
-  background: #232324; }
+  background: #03142E; }
 
 .main-menu.menu-dark .navigation .navigation-header {
   color: white;
@@ -917,8 +917,8 @@ footer.footer-border {
   z-index: 1; }
 
 .main-menu.menu-dark .navigation > li.active > a {
-  background: linear-gradient(118deg, #3A3A3A, rgba(96, 96, 102, 0.7));
-  box-shadow: 0 0 10px 1px rgba(160, 159, 170, 0.7);
+  background: linear-gradient(118deg, #09C0C5, rgb(122, 245, 68));
+  box-shadow: 0 0 10px 1px rgb(9, 192, 197);
   color: #fff;
   font-weight: 400;
   border-radius: 4px;

@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OrdersResource extends JsonResource
@@ -15,31 +14,15 @@ class OrdersResource extends JsonResource
      */
     public function toArray($request)
     {
-       // dd($this->types->title);
-       return [
-            'id'         => $this->id,
-            'restaurant_id'  => $this->restaurants->id,
-            'status'     => $this->status->title,
-            'user_name'  => $this->users->name,
-            'phone'      => $this->users->phone,
-            'image'      => getImagePath($this->restaurants->image),
-            'name'       => $this->restaurants->name,
-            'date'       => Carbon::parse($this->date)->format('d M Y') ? Carbon::parse($this->date)->format('d M Y') : null,
-            'time'       => Carbon::parse($this->time)->format('H:i a') ? Carbon::parse($this->time)->format('H:i a') : null,
-            'sets'       => null,
-            'note'       => $this->note,
-            'type_place' => $this->typeplaces ? $this->typeplaces->title : null,
-           // 'order_type' => $this->types->title,
-            'order_date' => $this->created_at->format('d M Y'),
-            'order_time' => $this->created_at->format('H:i a'),
-            'products'   => OrderProductsResource::collection($this->products),
-            'sub_total'  => $this->sub_total,
-            'discount'   => round($this->discount),
-            'total'      => $this->total,
-            'unfor_date' => $this->created_at->format('Y-m-d'),
+        return [
+            'id' => $this->id,
+            'kid' => $this->kid->name,
+            'seller' => $this->seller->name,
+            'total' => $this->total,
+            'date' => $this->created_at->format('d-m-Y'),
+            'time' => $this->created_at->format('H:i'),
+            'products' => ProductResource::collection($this->products),
+
         ];
-
     }
-
-
 }

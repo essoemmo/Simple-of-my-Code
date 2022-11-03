@@ -5,12 +5,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
-    <meta name="description" content="Vuexy admin">
-    <meta name="keywords" content="Vuexy admin">
+    <meta name="description" content="I'm Here admin">
+    <meta name="keywords" content="I'm Here admin">
     <meta name="author" content="">
     <title>@lang('admin.adminwebsiteTitle')</title>
     <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('AdminS/assets_ar/app-assets/images/ico/din.png')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('AdminS/assets_ar/app-assets/images/ico/herew.png')}}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600"
         rel="stylesheet">
 
@@ -165,9 +165,9 @@
 
                 <ul class="nav navbar-nav bookmark-icons">
                     @if(app()->isLocale('ar'))
-                    <a href="{{route('lang','en')}}"class="nav-link" style="font-family: cairo;margin-left: 10px;"><i class="flag-icon flag-icon-us"></i>English </a>
+                    <a href="{{route('lang','en')}}" class="round" style="font-family: cairo;margin-left: 10px;"><i class="flag-icon flag-icon-us" style="font-size: 200%;border-radius: 15px;"></i></a>
                    @else
-                    <a href="{{route('lang','ar')}}"class="nav-link" style="font-family: cairo;margin-right: 10px;"><i class="flag-icon flag-icon-sa"></i>العربية</a>
+                    <a href="{{route('lang','ar')}}" class="round" style="font-family: cairo;margin-right: 10px;"><i class="flag-icon flag-icon-sa" style="font-size: 200%;border-radius: 15px;"></i></a>
                    @endif
                 </ul>
             </div>

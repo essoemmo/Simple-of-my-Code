@@ -22,27 +22,10 @@ class OrderDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->editColumn('restaurant_id', function ($query) {
-                $restaurants = $query->restaurants()->first();
-                return $restaurants->name;
-            })
-            ->editColumn('user_id', function ($query) {
-                $user = $query->users()->first();
-                return $user->name;
-            })
-            ->editColumn('order_status_id', function ($query) {
-                $status = $query->status()->first();
-                return $status->title;
-            })
-            ->editColumn('order_type_id', function ($query) {
-                $type = $query->types()->first();
-                return $type->title;
-            })
             ->editColumn('created_at', function ($query) {
-                $start = Carbon::parse($query->created_at)->format('Y-m-d');
-                return $start;
+                $date = Carbon::parse($query->created_at)->format('Y-m-d');
+                return $date;
             });
-
     }
 
     /**
@@ -53,7 +36,7 @@ class OrderDataTable extends DataTable
      */
     public function query(Order $model)
     {
-        return $model->query();
+        return $model->query()->where('user_id', $this->id);
     }
 
     /**
@@ -64,20 +47,20 @@ class OrderDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('order-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->parameters([
-                        "processing" => true,
-                        "serverSide" => true,
-                        "responsive" => true,
-                        "searching"=> true,
-                        "drawCallback" => "function( settings ) {
-                            feather.replace();
-                        }",
-                    ])
-                    ->orderBy(0);
+        ->setTableId('order-table')
+        ->columns($this->getColumns())
+        ->minifiedAjax()
+        //->dom('Bfrtip')
+        ->parameters([
+            "processing" => true,
+            "serverSide" => true,
+            "responsive" => true,
+            "searching"=> true,
+            "drawCallback" => "function( settings ) {
+                feather.replace();
+            }",
+        ])
+        ->orderBy(0);
     }
 
     /**
@@ -89,14 +72,9 @@ class OrderDataTable extends DataTable
     {
         return [
             'id' => ['title' => 'ID', 'data' => 'id'],
-            'user_id' => ['title' =>  __('admin.username'), 'data' => 'user_id'],
-            'restaurant_id' => ['title' =>  __('admin.restaurantname'), 'data' => 'restaurant_id'],
-            'order_status_id' => ['title' =>  __('admin.orderstatus'), 'data' => 'order_status_id'],
-            'order_type_id' => ['title' =>  __('admin.ordertype'), 'data' => 'order_type_id'],
-            'sub_total' => ['title' =>  __('admin.subtotal'), 'data' => 'sub_total'],
-            'discount' => ['title' =>  __('admin.discount'), 'data' => 'discount'],
-            'total' => ['title' =>  __('admin.total'), 'data' => 'total'],
-            'created_at' => ['title' =>  __('admin.createdat'), 'data' => 'created_at'],
+            'kid_id' => ['title' => __('admin.kid_name'), 'data' => 'kid_id'],
+            'total' => ['title' => __('admin.total'), 'data' => 'total'],
+            'created_at' =>['title' => __('admin.date'), 'data' => 'created_at'],
         ];
     }
 

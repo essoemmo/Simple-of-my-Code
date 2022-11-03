@@ -386,7 +386,7 @@
                     $modal = $('#modal-edit-admin');
                     $modal.find('form')[0].reset();
                     $('#modal-edit-admin').modal('hide');
-                        table.ajax.reload();
+                    $('.admin-table').DataTable().ajax.reload();
                     },
                     error: function (response) {
                         var errors = response.responseJSON.errors;
@@ -415,7 +415,7 @@
                  _token: '{{ csrf_token() }}',
              },
              success: function (response) {
-                    table.ajax.reload();
+                $('.admin-table').DataTable().ajax.reload();
              }
            });
         })

@@ -1,68 +1,66 @@
 <?php
 
+use App\Http\Controllers\API\AccountController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\AuthDropdownController;
 use App\Http\Controllers\API\CartController;
+use App\Http\Controllers\API\HomeKidController;
+use App\Http\Controllers\API\HomeSellerController;
 use App\Http\Controllers\API\NotificationController;
 use App\Http\Controllers\API\OrderController;
-use App\Http\Controllers\API\ProductController;
-use App\Http\Controllers\API\QrCodeOrderController;
-use App\Http\Controllers\API\RateController;
-use App\Http\Controllers\API\ReservationController;
-use App\Http\Controllers\API\RestaurantController;
-use App\Http\Controllers\API\SettingController;
-use App\Http\Controllers\API\TakeOrderController;
+use App\Http\Controllers\API\OrganizationController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-    Route::post('register',            [AuthController::class,'Register']); //register
-    Route::post('verify',              [AuthController::class,'verify']); //verify
-    Route::post('reset',               [AuthController::class,'resetCode']); //reset_code
-    Route::post('login',               [AuthController::class,'login']); //login
-    Route::post('update-password',     [AuthController::class,'updatePassword']); //update password
 
-    Route::get('setting',              [SettingController::class,'AllSetting']); //setting
-    Route::post('contactus',           [SettingController::class,'ContactUs']); //contact
-    Route::get('all-setting',          [SettingController::class,'AllSetting']); //settings
 
-    Route::get('restaurants',          [RestaurantController::class,'Restaurants']); // restaurants
-    Route::post('restaurant-products', [RestaurantController::class,'RestaurantProducts']); //restaurant-products
-    Route::post('restaurant-details',  [RestaurantController::class,'Restaurant']); // details
-    Route::post('restaurant-qr',       [RestaurantController::class,'RestaurantQr']); //restaurant-amenities
-    Route::get('search',               [RestaurantController::class,'Search']); // search
-    Route::get('tables',               [RestaurantController::class,'tables']); //tables
+    Route::post('register',        [AuthController::class,'Register']); //register
+    Route::post('verify',          [AuthController::class,'verify']); //verify
+    Route::post('reset',           [AuthController::class,'resetCode']); //reset_code
+    Route::post('login',           [AuthController::class,'login']); //login
+    Route::post('update-password', [AuthController::class,'updatePassword']); //update password
+    Route::get('cities',           [AuthDropdownController::class,'cities']); //cities
+    Route::get('languages',        [AuthDropdownController::class,'langs']); //langs
+    Route::get('nationals',        [AuthDropdownController::class,'nationals']); //nationals
+    Route::get('relations',        [AuthDropdownController::class,'relations']); //relations
+    Route::get('settings',         [\App\Http\Controllers\API\SettingController::class,'index']); //relations
+    Route::post('scan',            [\App\Http\Controllers\API\KidController::class,'scan']); //relations
 
-    Route::post('product-details',     [ProductController::class,'ProductDetails']); // product
 
-Route::middleware('auth:api')->group( function () {
-    Route::get('logout',                [AuthController::class,'logout']); // logout
-    Route::post('add-rate',             [RateController::class,'addRate']); // user
-    Route::get('user-profile',          [AuthController::class,'UserProfile']); // profile
-    Route::post('update-profile',       [AuthController::class,'UpdateProfile']); // update profile
-    Route::post('update-password-user', [AuthController::class,'UpdateUserPassword']); //update password
-    Route::post('update-location',      [AuthController::class,'UpdateLocation']); //update location
+Route::middleware(['auth:api' , 'bindings'])->group( function () {
+    //SELLER
+    Route::get('home-seller',                 [HomeSellerController::class, 'index']); // home
+    Route::post('post-order',                 [OrderController::class, 'post']); // post order
+    Route::get('order-seller/{id}',           [OrderController::class, 'order']); // get order
+    Route::get('get-kid/{id}',                [HomeSellerController::class, 'getKid']); // view getKid
+    Route::post('post-account',               [AccountController::class, 'post']); // post order
+    Route::get('draw-request',                [HomeSellerController::class, 'drawRequest']); // get account
 
-    Route::post('check-take-order',     [OrderController::class,'CheckTakeOrder']); // check order
-    Route::post('add-order',            [OrderController::class,'AddOrder']); // add order
-    Route::get('active-orders',         [OrderController::class,'ActiveOrders'])->name('activeorders'); //active
-    Route::get('history-orders',        [OrderController::class,'HistoryOrders'])->name('historyorders'); //history
-    Route::post('discount',             [OrderController::class,'discountCoupon']); //discount
-    Route::post('cancel-order',         [OrderController::class,'CancelOrder']); //cancel
+    //KID
+    Route::get('home-kid',                    [HomeKidController::class, 'index']); // home
+    Route::get('order-kid/{id}',              [OrderController::class, 'order_kid']); // get order
 
-    Route::post('add-to-cart',          [CartController::class,'addToCart']); // add to cart
-    Route::get('small-cart-details',    [CartController::class,'SmallCartDetails']); // small
-    Route::get('cart-details',          [CartController::class,'CartDetails']); // Cart
-    Route::get('delete-carts',          [CartController::class,'DeleteCarts']); // Cart
-    Route::post('update-cart',          [CartController::class,'UpdateQty']); // Cart
-    Route::post('delete-cart',          [CartController::class,'DeleteCart']); // Cart
-
-    Route::post('add-reservation',      [ReservationController::class,'AddReservation']); //discount
-    Route::post('update-reservation',   [ReservationController::class,'UpdateReserv']); //discount
-    Route::post('cancel-reservation',   [ReservationController::class,'CancelReserv']); //cancel
-    Route::post('add-invite',           [ReservationController::class,'AddInvite']); //discount
-    Route::post('accept-invite',        [ReservationController::class,'AcceptInvite']); //discount
-    Route::get('invites',               [ReservationController::class,'Invitions']); //discount
-    Route::post('invites-resrves',      [ReservationController::class,'InvitesResrve']); //discount
-    Route::post('invites-details',      [ReservationController::class,'myInviteDetails']); //discount
+    //Organization
+    Route::post('organization-scan-kids',     [OrganizationController::class, 'scan']); // organization-scan-kids
+    Route::get('organization-home',          [OrganizationController::class, 'home']); // organization-home
+    Route::get('organization-attendance',      [OrganizationController::class, 'attendance']); // organization-attendance
+    Route::get('organization-leave',          [OrganizationController::class, 'leave']); // organization-leave
+    Route::get('organization-attendanceLeave',          [OrganizationController::class, 'attendanceLeave']); // organization-attendance and Leave
     
+    /*                  KIDS ROUTES                               */
+    Route::get('kids' ,                        [\App\Http\Controllers\API\KidController::class , 'index']);
+    Route::get('kids/{kid}' ,                  [\App\Http\Controllers\API\KidController::class , 'show']);
+    Route::post('kids' ,                       [\App\Http\Controllers\API\KidController::class , 'store']);
+    Route::post('kids/update/{kid}' ,                       [\App\Http\Controllers\API\KidController::class , 'update']);
+    Route::post('kids/charges/{kid}' ,         [\App\Http\Controllers\API\KidController::class , 'charge']);
+    Route::get('kids/charges/{kid}' ,               [\App\Http\Controllers\API\KidController::class , 'chargeHistory']);
+    Route::get('kids/orders/{kid}' ,               [\App\Http\Controllers\API\KidController::class , 'orders']);
+    Route::get('kids/scans/{kid}' ,               [\App\Http\Controllers\API\KidController::class , 'scans']);
+
+    /*    PARENT ROUTES        */
+    Route::post('parent/update-profile',[\App\Http\Controllers\API\ParentController::class,'updateProfile']);
+    Route::get('parent/transactions' , [\App\Http\Controllers\API\ParentController::class , 'transactions']);
+
     Route::get('notifications',         [NotificationController::class,'userNotifications']);
     Route::post('delete-notification',  [NotificationController::class,'DeleteNotification']);
 });

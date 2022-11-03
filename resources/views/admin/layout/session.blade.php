@@ -12,7 +12,7 @@
 
 @if (session('error'))
     <script>
-              toastr.options ={
+        toastr.options ={
         "closeButton" : true,
         "progressBar" : true,
         "showDuration": 500, 
@@ -20,5 +20,4 @@
         }
         toastr['error']("{{ session('error') }}");
     </script>
-    {{-- {{ session('error') }} --}}
 @endif

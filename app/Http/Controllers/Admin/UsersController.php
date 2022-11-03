@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\OrderDataTable;
+use App\DataTables\OrganizationDataTable;
+use App\DataTables\RequestsDataTable;
+use App\DataTables\SellerDataTable;
 use App\DataTables\UserDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreUser;
@@ -23,18 +27,33 @@ class UsersController extends BaseAdminController
         return $users->render('admin.users.index');
     }
 
-    public function store(StoreUser $request)
+    public function allkids(Request $request)
     {
-        $request->merge(['phone' => '+966'.$request->phone]);
-        $user = User::create($request->all());
-        if ($user) {
-            $user->update([
-                'image' => UploadImage($request->image,'users'),
-                'code'  => mt_rand(1000, 9999),
-                'password' => Hash::make($request->password)
-            ]);
-        }
-        return response()->json(['status' => 'success', 'data' => $user]);
+        $kids = User::where('user_id',$request->user_id)->get();
+         return json_decode($kids);
+    }
+
+    public function sellers(SellerDataTable $users)
+    {
+        return $users->render('admin.sellers.index');
+    }
+
+    public function sellerOrders(OrderDataTable $orders,$id)
+    {
+        $seller = User::find($id);
+        return $orders->with('id', $id)->render('admin.sellers.orders', compact('seller'));
+    }
+
+    public function restBalance(Request $request)
+    {
+        $seller = User::find($request->seller_id);
+        $seller->update(['balance' => 0]);
+        return response()->json(['status' => 'success', 'data' => $seller]);
+    }
+
+    public function organizations(OrganizationDataTable $users)
+    {
+        return $users->render('admin.organizations.index');
     }
 
     public function UserStatus(Request $request)
@@ -45,23 +64,15 @@ class UsersController extends BaseAdminController
         return response()->json(['status' => 'success', 'data' => $user]);
     }
 
-    public function update(UpdateUser $request, $id)
+    public function sellerRequest(RequestsDataTable $users)
     {
-        $user = User::findOrFail($id);
-        $user->update($request->validated());
-        if ($request->image) {
-            $user->update([
-                'image' => UploadImage($request->image,'users'),
-                'password' => Hash::make($request->password)
-            ]);
-        }
-        return response()->json(['status' => 'success', 'data' => $user]);
+        return $users->render('admin.requests.index');
     }
 
-    public function destroy($id)
+    public function BankAccount(Request $request)
     {
-        $user = User::whereId($id)->delete();
-        return response()->json(['status' => 'success']);
+        $seller = User::find($request->seller_id)->accounts()->get();
+        return json_decode($seller);
     }
 
 }

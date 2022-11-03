@@ -14,17 +14,14 @@ return [
     'roles_structure' => [
 
         'super_admin' => [
-            'restaurants'  => 'c,r,u,d',
             'admins'       => 'c,r,u,d',
-            'banners'      => 'c,r,u,d',
-            'amenities'    => 'c,r,u,d',
-            'coupons'      => 'c,r,u,d',
             'roles'        => 'c,r,u,d',
             'users'        => 'c,r,u,d',
-            'orders'       => 'c,r,u,d',
             'faqs'         => 'c,r,u,d',
-            'sections'     => 'c,r,u,d',
-            'rates'        => 'r,u,d',
+            'cities'       => 'c,r,u,d',
+            'languages'    => 'c,r,u,d',
+            'nationals'    => 'c,r,u,d',
+            'relations'    => 'c,r,u,d',
             'aboutus'      => 'r,u',
             'terms'        => 'r,u',
             'usages'       => 'r,u',

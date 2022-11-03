@@ -12,7 +12,7 @@ use Yajra\DataTables\Services\DataTable;
 
 class FaqDataTable extends DataTable
 {
-    /**
+   /**
      * Build DataTable class.
      *
      * @param mixed $query Results from query() method.
@@ -99,13 +99,4 @@ class FaqDataTable extends DataTable
         ];
     }
 
-    /**
-     * Get filename for export.
-     *
-     * @return string
-     */
-    protected function filename()
-    {
-        return 'Faq_' . date('YmdHis');
-    }
 }

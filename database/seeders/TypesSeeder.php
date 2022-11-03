@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\OrderType;
+use App\Models\Type;
 use Illuminate\Database\Seeder;
 
 class TypesSeeder extends Seeder
@@ -17,21 +17,26 @@ class TypesSeeder extends Seeder
         $types = [
 
             [
-                'title_ar' => 'تيك اواى',
-                'title_en' => 'Takeaway',
+                'title_ar' => 'ولى امر',
+                'title_en' => 'Parent',
             ],
             [
-                'title_ar' => 'حجز',
-                'title_en' => 'Reservation',
+                'title_ar' => 'مؤسسة',
+                'title_en' => 'Organization',
             ],
             [
-                'title_ar' => 'داخل المطعم',
-                'title_en' => 'Inside restaurant',
+                'title_ar' => 'بائع',
+                'title_en' => 'Seller',
             ],
+            [
+                'title_ar' => 'طفل',
+                'title_en' => 'kid',
+            ]
+
         ];
 
         foreach ($types as $type) {
-            OrderType::create($type);
+            Type::create($type);
         }
     }
 }

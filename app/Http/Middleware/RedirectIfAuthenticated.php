@@ -25,12 +25,6 @@ class RedirectIfAuthenticated
                 return redirect('admin/home');
             }
               break;
-              
-            case 'restaurant':
-            if (Auth::guard($guard)->check()) {
-                return redirect('restaurant/home');
-            }
-              break;
 
             default:
             if (Auth::guard($guard)->check()) {

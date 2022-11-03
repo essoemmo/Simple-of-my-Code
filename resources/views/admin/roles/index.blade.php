@@ -150,7 +150,7 @@
                     }
                     toastr['success']("@lang('admin.added')");
                 }
-                    table.ajax.reload();
+                $('.role-table').DataTable().ajax.reload();
                     $modal = $('#modal-add-role');
                     $modal.find('form')[0].reset();
                     $('#modal-add-role').modal('hide');
@@ -182,7 +182,7 @@
                  _token: '{{ csrf_token() }}',
              },
              success: function (response) {
-                    table.ajax.reload();
+                $('.role-table').DataTable().ajax.reload();
              }
            });
         })

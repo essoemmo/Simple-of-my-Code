@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,15 +18,11 @@ use Illuminate\Support\Facades\Response;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::get('langhome/{local}', [HomeController::class, 'langHome'])->name('langhome');
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/faq', [App\Http\Controllers\HomeController::class, 'faqs'])->name('faq');
-Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contactUs'])->name('contact');
-Route::post('/storecontact', [App\Http\Controllers\HomeController::class, 'storeContact'])->name('storecontact');
+Auth::routes();
 
 Route::get('command', function () {
     Artisan::call('route:clear');
@@ -53,9 +50,6 @@ Route::get('storage/{filename}', function ($filename)
     $response = Response::make($file, 200);
     $response->header("Content-Type", $type);
 
-    return $response;
 });
 
-Auth::routes();
-
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -2,7 +2,6 @@
 
 namespace App\DataTables;
 
-use App\Models\ContactU;
 use App\Models\ContactUs;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Html\Button;
@@ -100,13 +99,5 @@ class ContactUsDataTable extends DataTable
         ];
     }
 
-    /**
-     * Get filename for export.
-     *
-     * @return string
-     */
-    protected function filename()
-    {
-        return 'ContactUs_' . date('YmdHis');
-    }
+
 }

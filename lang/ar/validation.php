@@ -148,6 +148,7 @@ return [
 
     'attributes' => [
         'name'                  => 'الاسم',
+        'id_number'             => 'رقم الهوية',
         'user_id'               => 'المُستخدم',
         'product_id'            => 'المنتج',
         'username'              => 'اسم المُستخدم',

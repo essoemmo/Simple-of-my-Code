@@ -12,6 +12,7 @@ use Yajra\DataTables\Services\DataTable;
 
 class UserDataTable extends DataTable
 {
+
     /**
      * Build DataTable class.
      *
@@ -52,25 +53,9 @@ class UserDataTable extends DataTable
             })
             ->addColumn('action', function ($query) {
 
-                if (Auth::guard('admin')->user()->hasPermission('users-update')){
-                    $btn ='<button type="button" class="btn btn-icon btn-icon rounded-circle btn-dark edit" data-toggle="modal"
-                    data-target="#modal-edit-user" data-userid="'.$query->id.'" data-name="'.$query->name.'"
-                    data-email="'.$query->email.'" data-phone="'.$query->phone.'" data-address="'.$query->address.'" data-user_image="'.$query->image.'"><i data-feather="edit"></i></button> &nbsp;';
-                   }else{
-                    $btn = '<button  type="button" class="btn btn-icon btn-icon rounded-circle btn-dark disabled"><i data-feather="edit"></i></button>';
-                   }
-
-                if (Auth::guard('admin')->user()->hasPermission('users-delete')){
-                    $btn = $btn.
-                    '<form class="delete"  action="' . route("users.destroy", $query->id) . '"  method="POST" id="delform"
-                    style="display: inline-block; right: 50px;" >
-                    <input name="_method" type="hidden" value="DELETE">
-                    <input type="hidden" name="_token" value="' . csrf_token() . '">
-                    <button type="submit" class="btn btn-icon btn-icon rounded-circle btn-danger" title=" ' . 'Delete' . ' "><i data-feather="trash-2"></i></button>
-                        </form>';
-                }else{
-                    $btn = $btn. '<button class="btn btn-danger btn-xs disabled"><i data-feather="trash-2"></i></button>';
-                }
+                    $btn ='<button type="button" class="btn btn-icon btn-icon rounded-circle btn-dark kids" data-id="' . $query->id . '" data-toggle="modal" data-target="#typesList">
+                    <i data-feather="user"></i>
+                </button> &nbsp;';
 
                 return $btn;
             })
@@ -85,7 +70,7 @@ class UserDataTable extends DataTable
      */
     public function query(User $model)
     {
-        return $model->query()->orderByDesc('id')      ;
+        return $model->query()->where('type_id',1)->orderByDesc('id');
     }
 
     /**
@@ -122,21 +107,16 @@ class UserDataTable extends DataTable
         return [
             'id' => ['title' => 'ID', 'data' => 'id'],
             'name' => ['title' =>  __('admin.name'), 'data' => 'name'],
+            'id_number' => ['title' =>  __('admin.id_number'), 'data' => 'id_number'],
             'email' => ['title' =>  __('admin.email'), 'data' => 'email'],
             'phone' => ['title' =>  __('admin.phone'), 'data' => 'phone'],
             'code' => ['title' =>  __('admin.code'), 'data' => 'code'],
+            'birthday' => ['title' =>  __('admin.birthday'), 'data' => 'birthday'],
+            'balance' => ['title' =>  __('admin.balance'), 'data' => 'balance'],
             'active' => ['title' =>  __('admin.active'), 'data' => 'active'],
-            'action' => ['title' =>  __('admin.action'), 'data' => 'action'],
+            'action' => ['title' =>  __('admin.kids'), 'data' => 'action'],
         ];
     }
 
-    /**
-     * Get filename for export.
-     *
-     * @return string
-     */
-    protected function filename()
-    {
-        return 'User_' . date('YmdHis');
-    }
+
 }

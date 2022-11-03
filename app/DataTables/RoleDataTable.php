@@ -12,7 +12,7 @@ use Yajra\DataTables\Services\DataTable;
 
 class RoleDataTable extends DataTable
 {
-    /**
+/**
      * Build DataTable class.
      *
      * @param mixed $query Results from query() method.
@@ -97,13 +97,5 @@ class RoleDataTable extends DataTable
         ];
     }
 
-    /**
-     * Get filename for export.
-     *
-     * @return string
-     */
-    protected function filename()
-    {
-        return 'Role_' . date('YmdHis');
-    }
+
 }

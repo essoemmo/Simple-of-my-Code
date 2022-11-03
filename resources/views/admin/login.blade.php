@@ -6,11 +6,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
-    <meta name="description" content="Dine-In Admin">
-    <meta name="keywords" content="Dine-In Admin">
-    <meta name="author" content="Dine-In">
+    <meta name="description" content="I'm Here Admin">
+    <meta name="keywords" content="I'm Here Admin">
+    <meta name="author" content="I'm Here">
     <title> @lang('admin.adminwebsiteTitle')</title>
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('AdminS/assets_ar/app-assets/images/ico/din.png')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('AdminS/assets_ar/app-assets/images/ico/here.png')}}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
     @if (app()->getlocale() == 'ar')
     <!-- BEGIN: Vendor CSS-->
@@ -56,13 +56,13 @@
 
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('AdminS/assets_en/app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('AdminS/assets_ar/app-assets/css/plugins/extensions/ext-component-toastr.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{asset('AdminS/assets_en/app-assets/css/plugins/extensions/ext-component-toastr.css') }}">
     <link rel="stylesheet" type="text/css" href="{{asset('AdminS/assets_en/app-assets/css/plugins/forms/form-validation.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('AdminS/assets_en/app-assets/css/pages/page-auth.css')}}">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="{{asset('AdminS/assets_ar/assets/css/style.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('AdminS/assets_en/assets/css/style.css')}}">
     <!-- END: Custom CSS-->
     @endif
     
@@ -87,7 +87,7 @@
                         <div class="card mb-0">
                             <div class="card-body">
                                 <a href="javascript:void(0);" class="brand-logo">
-                                    <img src="{{asset('AdminS/assets_ar/app-assets/images/logo/logo.png')}}" alt="" style="text-align: center;width: 20%;">
+                                    <img src="{{asset('AdminS/assets_ar/app-assets/images/logo/logo.png')}}" alt="" style="text-align: center;width: 80%;margin-left: -10%;margin-bottom: -14%;margin-top: -17%;">
                                 </a>
 
                                 <h4 class="card-title mb-1" style="text-align: center;">@lang('admin.welcome') 👋</h4>
@@ -96,13 +96,13 @@
                                 <form class="auth-login-form mt-2" method="POST" action="{{ route('admin.login') }}" data-parsley-validate>
                                     @csrf
                                     <div class="form-group">
-                                        <label for="login-email" class="form-label">@lang('admin.email')</label>
+                                        <label for="login-email" class="form-label">@lang('admin.email') *</label>
                                         <input type="email" class="form-control" id="login-email" name="email" value="{{ old('email') }}" placeholder="@lang('admin.email')" aria-describedby="login-email" tabindex="1"  required autofocus />
                                     </div>
 
                                     <div class="form-group">
                                         <div class="d-flex justify-content-between">
-                                            <label for="login-password">@lang('admin.password')</label>
+                                            <label for="login-password">@lang('admin.password') *</label>
                                         </div>
                                         <div class="input-group input-group-merge form-password-toggle">
                                             <input type="password" class="form-control form-control-merge" id="login-password" name="password" value="{{ old('password') }}" tabindex="2" placeholder="@lang('admin.password')" aria-describedby="login-password" required autofocus/>
@@ -117,7 +117,7 @@
                                             <label class="custom-control-label" for="remember" > @lang('admin.remember') </label>
                                         </div>
                                     </div>
-                                    <button class="btn btn-dark btn-block" tabindex="4">@lang('admin.login')</button>
+                                    <button class="btn btn-gradient-success btn-block" tabindex="4"> <i data-feather='log-in'></i> @lang('admin.login')</button>
                                 </form>
 
                                 <p class="text-center mt-2">
@@ -140,8 +140,8 @@
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
-    <script src="{{asset('AdminS/assets_ar/app-assets/vendors/js/extensions/toastr.min.js')}}"></script>
     <script src="{{asset('AdminS/assets_ar/app-assets/vendors/js/forms/validation/jquery.validate.min.js')}}"></script>
+    <script src="{{asset('AdminS/assets_ar/app-assets/vendors/js/extensions/toastr.min.js')}}"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
@@ -152,7 +152,7 @@
     <!-- BEGIN: Page JS-->
     <script src="{{asset('AdminS/assets_ar/app-assets/js/scripts/pages/page-auth-login.js')}}"></script>
     <!-- END: Page JS-->
-
+    @include('admin.layout.session')
     <script>
         $(window).on('load', function() {
             if (feather) {
@@ -164,7 +164,7 @@
         })
     </script>
 
-@include('admin.layout.session')
+
 
 </body>
 <!-- END: Body-->

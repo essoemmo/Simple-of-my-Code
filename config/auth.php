@@ -36,6 +36,7 @@ return [
     */
 
     'guards' => [
+
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
@@ -46,19 +47,9 @@ return [
             'provider' => 'admins',
         ],
 
-        'restaurant' => [
-            'driver' => 'session',
-            'provider' => 'restaurants',
-        ],
-
         'api' => [
             'driver' => 'sanctum',
             'provider' => 'users',
-        ],
-
-        'restaurant-api' => [
-            'driver' => 'sanctum',
-            'provider' => 'restaurants',
         ],
     ],
 
@@ -90,11 +81,6 @@ return [
             'model' => App\Models\Admin::class,
         ],
 
-        'restaurants' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Restaurant::class,
-        ],
-
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -119,18 +105,6 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
-        'admins' => [
-            'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
-        'restaurants' => [
-            'provider' => 'restaurants',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

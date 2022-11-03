@@ -20,7 +20,6 @@ class NotificationResource extends JsonResource
             'id'        => $this->id,
             'title'     => $this->data['title_'. app()->getLocale()],
             'body'      => $this->data['body_' . app()->getLocale()],
-            'image'     => $this->data['image'],
             'time'      => Carbon::parse($this->created_at)->diffForHumans(),
         ];
     }
